@@ -11,7 +11,9 @@ warnings.filterwarnings('ignore')
 
 print('All libraries imported successfully!')
 
-file_path = r"D:\Python\Project\Project 4\single_genre_artists.csv"
+# Read the CSV from the same folder as this script, so it runs on any computer
+from pathlib import Path
+file_path = Path(__file__).resolve().parent / "single_genre_artists.csv"
 df = pd.read_csv(file_path)
 print('Column Names:')
 print(df.columns.tolist())
@@ -231,7 +233,9 @@ for c in range(best_k):
     sample = df[df['Cluster'] == c][['name_song', 'name_artists', 'genres']].head(5)
     print(sample.to_string(index=False))
     
-    df.to_csv('amazon_music_clustered_output.csv', index=False)
+
+# Save once, after the loop
+df.to_csv(Path(__file__).resolve().parent / 'amazon_music_clustered_output.csv', index=False)
 
 print('File saved: amazon_music_clustered_output.csv')
 print('Shape:', df.shape)
